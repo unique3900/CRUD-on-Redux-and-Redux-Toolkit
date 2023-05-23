@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import { useSelector,useDispatch } from 'react-redux'
-import { insertUser,deleteUser } from './Features/Users';
+import { insertUser,deleteUser,updateuser } from './Features/Users';
 const App = () => {
 
   const userList = useSelector((state) => state.users.value);
   const dispatcher = useDispatch();
   const [name, setName] = useState("");
   const [uname, setUname] = useState("");
+  const [updateuname, setUpdateUname] = useState("");
 
 
   const handleSubmit = () => {
@@ -33,8 +34,12 @@ const App = () => {
               <h1>{item.id}. {item.name}</h1>
               <h4>{item.username}</h4>
 
-              <input type="text"  />
-              <button>Update</button>
+              <input type="text" value={updateuname} onChange={(e) => {
+                setUpdateUname(e.target.value)
+              }}  />
+              <button onClick={() => {
+                dispatcher(updateuser({id:item.id,username:updateuname}))
+              }}>Update</button>
               <button onClick={() => {
                 dispatcher(deleteUser({id:item.id}))
               }}>Delete</button>

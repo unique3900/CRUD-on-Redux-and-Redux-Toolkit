@@ -10,7 +10,11 @@ export const userSlice = createSlice({
             state.value.push(action.payload);
         },
         updateuser: (state, action) => {
-            
+            state.value.map((user) => {
+                if (user.id === action.payload.id) {
+                    user.username = action.payload.username;
+                }
+            })
         },
         deleteUser: (state, action) => {
             state.value = state.value.filter((user) => user.id !== action.payload.id);
@@ -18,5 +22,5 @@ export const userSlice = createSlice({
     }
 });
 
-export const { insertUser,deleteUser } = userSlice.actions; 
+export const { insertUser,deleteUser,updateuser } = userSlice.actions; 
 export default userSlice.reducer;
